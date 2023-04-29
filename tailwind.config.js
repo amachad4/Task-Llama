@@ -6,6 +6,10 @@ module.exports = {
       fontSize: {
         base: '1rem',
         heading: '2rem'
+      },
+      colors: {
+        'task-llama-white': '#EEEEEE',
+        'task-llama-teal': '#00ADB5'
       }
     }
   },
