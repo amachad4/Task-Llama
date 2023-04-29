@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'ubuntu';
+  src: url('/fonts/ubuntu/ubuntu-v20-latin-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@layer base {
+  body,
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  div,
+  p,
+  button {
+    @apply !font-body;
+  }
+}
+
+/* active color for navigation border bottom */
+.ui.secondary.pointing.menu .active.item {
+  border-color: #eeeeee;
+}
+
+/* semantic grid border */
+.ui.celled.grid > .row {
+  box-shadow: 0 -1px #00adb5;
+}

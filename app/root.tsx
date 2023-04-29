@@ -11,8 +11,8 @@ import tailwindStyles from './styles/tailwind.css';
 import semanticUiStyles from 'semantic-ui-css/semantic.min.css';
 
 export const links: LinksFunction = () => [
-  { rel: 'stylesheet', href: tailwindStyles },
-  { rel: 'stylesheet', href: semanticUiStyles }
+  { rel: 'stylesheet', href: semanticUiStyles },
+  { rel: 'stylesheet', href: tailwindStyles }
 ];
 
 export default function App() {

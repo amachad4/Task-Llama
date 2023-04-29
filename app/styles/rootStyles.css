@@ -1,0 +1,5 @@
+/* Remove margin from container wrapper */
+
+.ui.container.min-h-screen {
+  margin: 0 !important;
+}

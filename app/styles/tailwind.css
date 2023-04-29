@@ -426,6 +426,19 @@ video {
   display: none;
 }
 
+body,
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+div,
+p,
+button {
+  font-family: 'ubuntu', 'serif' !important;
+}
+
 *,
 ::before,
 ::after {
@@ -528,46 +541,254 @@ video {
   --tw-backdrop-sepia: ;
 }
 
+.m-0 {
+  margin: 0px !important;
+}
+
+.mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.mt-\[-7rem\] {
+  margin-top: -7rem !important;
+}
+
+.ml-1 {
+  margin-left: 0.25rem !important;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+.inline {
+  display: inline !important;
+}
+
+.flex {
+  display: flex !important;
+}
+
 .hidden {
-  display: none;
+  display: none !important;
+}
+
+.min-h-full {
+  min-height: 100% !important;
 }
 
 .min-h-screen {
-  min-height: 100vh;
+  min-height: 100vh !important;
+}
+
+.w-\[80\%\] {
+  width: 80% !important;
+}
+
+.w-\[90\%\] {
+  width: 90% !important;
+}
+
+.w-\[100\%\] {
+  width: 100% !important;
+}
+
+.w-full {
+  width: 100% !important;
+}
+
+.min-w-full {
+  min-width: 100% !important;
+}
+
+.min-w-fit {
+  min-width: -moz-fit-content !important;
+  min-width: fit-content !important;
+}
+
+.min-w-\[95\%\] {
+  min-width: 95% !important;
+}
+
+.min-w-\[70\%\] {
+  min-width: 70% !important;
+}
+
+.max-w-fit {
+  max-width: -moz-fit-content !important;
+  max-width: fit-content !important;
+}
+
+.max-w-full {
+  max-width: 100% !important;
+}
+
+.max-w-\[70\%\] {
+  max-width: 70% !important;
+}
+
+.basis-full {
+  flex-basis: 100% !important;
+}
+
+.flex-row {
+  flex-direction: row !important;
+}
+
+.flex-col {
+  flex-direction: column !important;
+}
+
+.items-center {
+  align-items: center !important;
+}
+
+.justify-center {
+  justify-content: center !important;
+}
+
+.justify-between {
+  justify-content: space-between !important;
+}
+
+.justify-evenly {
+  justify-content: space-evenly !important;
+}
+
+.border {
+  border-width: 1px !important;
+}
+
+.border-none {
+  border-style: none !important;
+}
+
+.border-red-700 {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(185 28 28 / var(--tw-border-opacity)) !important;
 }
 
 .bg-red-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity)) !important;
+}
+
+.bg-task-llama-light-gray {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(245 245 245 / var(--tw-bg-opacity)) !important;
 }
 
 .bg-task-llama-teal {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 173 181 / var(--tw-bg-opacity));
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(0 173 181 / var(--tw-bg-opacity)) !important;
 }
 
-.pt-5 {
-  padding-top: 1.25rem;
+.bg-task-llama-white {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(238 238 238 / var(--tw-bg-opacity)) !important;
+}
+
+.p-2 {
+  padding: 0.5rem !important;
+}
+
+.pb-4 {
+  padding-bottom: 1rem !important;
+}
+
+.pb-5 {
+  padding-bottom: 1.25rem !important;
 }
 
 .text-center {
-  text-align: center;
+  text-align: center !important;
+}
+
+.font-body {
+  font-family: 'ubuntu', 'serif' !important;
+}
+
+.text-base {
+  font-size: 1rem !important;
 }
 
 .text-heading {
-  font-size: 2rem;
+  font-size: 4rem !important;
 }
 
-.font-bold {
-  font-weight: 700;
+.text-sub-heading {
+  font-size: 2rem !important;
 }
 
 .text-task-llama-white {
-  --tw-text-opacity: 1;
-  color: rgb(238 238 238 / var(--tw-text-opacity));
+  --tw-text-opacity: 1 !important;
+  color: rgb(238 238 238 / var(--tw-text-opacity)) !important;
 }
 
-.text-red-600 {
-  --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity));
+.shadow-none {
+  --tw-shadow: 0 0 #0000 !important;
+  --tw-shadow-colored: 0 0 #0000 !important;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+
+@font-face {
+  font-family: 'ubuntu';
+
+  src: url('/fonts/ubuntu/ubuntu-v20-latin-regular.woff') format('woff');
+
+  font-weight: 400;
+
+  font-style: normal;
+}
+
+/* active color for navigation border bottom */
+
+.ui.secondary.pointing.menu .active.item {
+  border-color: #eeeeee;
+}
+
+/* semantic grid border */
+
+.ui.celled.grid > .row {
+  box-shadow: 0 -1px #00adb5;
+}
+
+.hover\:border-none:hover {
+  border-style: none !important;
+}
+
+.hover\:border-task-llama-gray-dark:hover {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(34 40 49 / var(--tw-border-opacity)) !important;
+}
+
+.hover\:border-task-llama-white:hover {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(238 238 238 / var(--tw-border-opacity)) !important;
+}
+
+.hover\:\!bg-task-llama-white:hover {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(238 238 238 / var(--tw-bg-opacity)) !important;
+}
+
+.hover\:bg-task-llama-white:hover {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(238 238 238 / var(--tw-bg-opacity)) !important;
+}
+
+.hover\:text-task-llama-teal:hover {
+  --tw-text-opacity: 1 !important;
+  color: rgb(0 173 181 / var(--tw-text-opacity)) !important;
+}
+
+.focus\:border-task-llama-white:focus {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(238 238 238 / var(--tw-border-opacity)) !important;
+}
+
+.active\:border-task-llama-white:active {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(238 238 238 / var(--tw-border-opacity)) !important;
 }
