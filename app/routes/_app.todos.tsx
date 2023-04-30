@@ -1,5 +1,20 @@
 import { useLoaderData } from '@remix-run/react';
 import { Activity } from '~/types/types';
+import {
+  DndContext,
+  useSensor,
+  PointerSensor,
+  closestCenter,
+  DragEndEvent
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  useSortable,
+  SortableContext,
+  verticalListSortingStrategy
+} from '@dnd-kit/sortable';
+import Task from '~/route_components/Task';
+import { useState } from 'react';
 
 interface loaderData {
   todoList: Activity[];
@@ -17,14 +32,37 @@ export async function loader(): Promise<loaderData> {
 export default function todo() {
   const loaderData = useLoaderData<loaderData>();
   const { todoList } = loaderData;
+  const [items, setItems] = useState<Array<Activity>>(todoList);
+  const sensor = useSensor(PointerSensor);
+
+  const handleDrag = ({ active, over }: DragEndEvent) => {
+    if (over) {
+      if (active.id !== over.id) {
+        setItems((array) => {
+          const oldIndex = array.findIndex((item) => item.id === active.id);
+          const newIndex = array.findIndex((item) => item.id === over.id);
+          return arrayMove(array, oldIndex, newIndex);
+        });
+      }
+    }
+  };
+
   return (
     <div>
-      <h1>Todo list</h1>
-      <ul>
-        {todoList.map((item) => {
-          return <li>{item.title}</li>;
-        })}
-      </ul>
+      <DndContext
+        sensors={[sensor]}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDrag}
+      >
+        <SortableContext
+          items={todoList.map((todo) => todo.id)}
+          strategy={verticalListSortingStrategy}
+        >
+          {items.map((item) => {
+            return <Task key={item.id} activity={item} />;
+          })}
+        </SortableContext>
+      </DndContext>
     </div>
   );
 }

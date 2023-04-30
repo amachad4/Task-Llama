@@ -545,24 +545,20 @@ button {
   margin: 0px !important;
 }
 
+.m-5 {
+  margin: 1.25rem !important;
+}
+
+.m-2 {
+  margin: 0.5rem !important;
+}
+
 .mr-2 {
   margin-right: 0.5rem !important;
 }
 
 .mt-\[-7rem\] {
   margin-top: -7rem !important;
-}
-
-.ml-1 {
-  margin-left: 0.25rem !important;
-}
-
-.inline-block {
-  display: inline-block !important;
-}
-
-.inline {
-  display: inline !important;
 }
 
 .flex {
@@ -573,6 +569,14 @@ button {
   display: none !important;
 }
 
+.h-\[700px\] {
+  height: 700px !important;
+}
+
+.h-\[340px\] {
+  height: 340px !important;
+}
+
 .min-h-full {
   min-height: 100% !important;
 }
@@ -581,19 +585,7 @@ button {
   min-height: 100vh !important;
 }
 
-.w-\[80\%\] {
-  width: 80% !important;
-}
-
-.w-\[90\%\] {
-  width: 90% !important;
-}
-
 .w-\[100\%\] {
-  width: 100% !important;
-}
-
-.w-full {
   width: 100% !important;
 }
 
@@ -601,38 +593,14 @@ button {
   min-width: 100% !important;
 }
 
-.min-w-fit {
-  min-width: -moz-fit-content !important;
-  min-width: fit-content !important;
-}
-
-.min-w-\[95\%\] {
-  min-width: 95% !important;
-}
-
-.min-w-\[70\%\] {
-  min-width: 70% !important;
-}
-
-.max-w-fit {
-  max-width: -moz-fit-content !important;
-  max-width: fit-content !important;
-}
-
-.max-w-full {
-  max-width: 100% !important;
-}
-
-.max-w-\[70\%\] {
-  max-width: 70% !important;
-}
-
 .basis-full {
   flex-basis: 100% !important;
 }
 
-.flex-row {
-  flex-direction: row !important;
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
 }
 
 .flex-col {
@@ -651,21 +619,8 @@ button {
   justify-content: space-between !important;
 }
 
-.justify-evenly {
-  justify-content: space-evenly !important;
-}
-
-.border {
-  border-width: 1px !important;
-}
-
 .border-none {
   border-style: none !important;
-}
-
-.border-red-700 {
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(185 28 28 / var(--tw-border-opacity)) !important;
 }
 
 .bg-red-500 {
@@ -681,11 +636,6 @@ button {
 .bg-task-llama-teal {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(0 173 181 / var(--tw-bg-opacity)) !important;
-}
-
-.bg-task-llama-white {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(238 238 238 / var(--tw-bg-opacity)) !important;
 }
 
 .p-2 {
@@ -732,6 +682,20 @@ button {
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 }
 
+.transition {
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+    -webkit-backdrop-filter !important;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+    backdrop-filter !important;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+    backdrop-filter, -webkit-backdrop-filter !important;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition-duration: 150ms !important;
+}
+
 @font-face {
   font-family: 'ubuntu';
 
@@ -752,15 +716,6 @@ button {
 
 .ui.celled.grid > .row {
   box-shadow: 0 -1px #00adb5;
-}
-
-.hover\:border-none:hover {
-  border-style: none !important;
-}
-
-.hover\:border-task-llama-gray-dark:hover {
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(34 40 49 / var(--tw-border-opacity)) !important;
 }
 
 .hover\:border-task-llama-white:hover {
