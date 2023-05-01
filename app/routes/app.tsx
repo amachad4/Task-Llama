@@ -57,6 +57,7 @@ export default function TaskLlamaAppLayout() {
   };
 
   // TODO: Abstract this component into usable route components
+  // TODO: Fix drag and drop reorder issue, figure out lane drag and drop
   return (
     <>
       <NavBar />
