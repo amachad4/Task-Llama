@@ -545,12 +545,8 @@ button {
   margin: 0px !important;
 }
 
-.m-5 {
-  margin: 1.25rem !important;
-}
-
-.m-2 {
-  margin: 0.5rem !important;
+.mb-5 {
+  margin-bottom: 1.25rem !important;
 }
 
 .mr-2 {
@@ -561,6 +557,22 @@ button {
   margin-top: -7rem !important;
 }
 
+.mb-4 {
+  margin-bottom: 1rem !important;
+}
+
+.mb-8 {
+  margin-bottom: 2rem !important;
+}
+
+.mb-10 {
+  margin-bottom: 2.5rem !important;
+}
+
+.mb-12 {
+  margin-bottom: 3rem !important;
+}
+
 .flex {
   display: flex !important;
 }
@@ -569,12 +581,14 @@ button {
   display: none !important;
 }
 
-.h-\[700px\] {
-  height: 700px !important;
+.h-fit {
+  height: -moz-fit-content !important;
+  height: fit-content !important;
 }
 
-.h-\[340px\] {
-  height: 340px !important;
+.max-h-fit {
+  max-height: -moz-fit-content !important;
+  max-height: fit-content !important;
 }
 
 .min-h-full {
@@ -585,12 +599,33 @@ button {
   min-height: 100vh !important;
 }
 
+.min-h-fit {
+  min-height: -moz-fit-content !important;
+  min-height: fit-content !important;
+}
+
 .w-\[100\%\] {
   width: 100% !important;
 }
 
+.w-5 {
+  width: 1.25rem !important;
+}
+
+.w-10 {
+  width: 2.5rem !important;
+}
+
+.w-1\/2 {
+  width: 50% !important;
+}
+
 .min-w-full {
   min-width: 100% !important;
+}
+
+.grow-0 {
+  flex-grow: 0 !important;
 }
 
 .basis-full {
@@ -601,6 +636,10 @@ button {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+}
+
+.flex-row {
+  flex-direction: row !important;
 }
 
 .flex-col {
@@ -658,10 +697,6 @@ button {
   font-family: 'ubuntu', 'serif' !important;
 }
 
-.text-base {
-  font-size: 1rem !important;
-}
-
 .text-heading {
   font-size: 4rem !important;
 }
@@ -680,20 +715,6 @@ button {
   --tw-shadow-colored: 0 0 #0000 !important;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
-}
-
-.transition {
-  transition-property: color, background-color, border-color,
-    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
-    -webkit-backdrop-filter !important;
-  transition-property: color, background-color, border-color,
-    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
-    backdrop-filter !important;
-  transition-property: color, background-color, border-color,
-    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
-    backdrop-filter, -webkit-backdrop-filter !important;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
-  transition-duration: 150ms !important;
 }
 
 @font-face {
@@ -718,6 +739,10 @@ button {
   box-shadow: 0 -1px #00adb5;
 }
 
+.hover\:cursor-pointer:hover {
+  cursor: pointer !important;
+}
+
 .hover\:border-task-llama-white:hover {
   --tw-border-opacity: 1 !important;
   border-color: rgb(238 238 238 / var(--tw-border-opacity)) !important;
@@ -736,6 +761,10 @@ button {
 .hover\:text-task-llama-teal:hover {
   --tw-text-opacity: 1 !important;
   color: rgb(0 173 181 / var(--tw-text-opacity)) !important;
+}
+
+.hover\:opacity-50:hover {
+  opacity: 0.5 !important;
 }
 
 .focus\:border-task-llama-white:focus {

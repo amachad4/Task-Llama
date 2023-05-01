@@ -14,12 +14,12 @@ export default function Index() {
           Welcome to List Llama 👋
         </Header>
         <Container className='text-center'>
-          <Header.Subheader className='text-task-llama-white text-base pb-4 text-sub-heading'>
+          <Header.Subheader className='text-task-llama-white pb-4 text-sub-heading'>
             A better way to track your day to day tasks!
           </Header.Subheader>
           <Button
             as={Link}
-            to='/todos'
+            to='app'
             inverted
             className='font-body text-task-llama-white hover:!bg-task-llama-white hover:text-task-llama-teal'
           >
