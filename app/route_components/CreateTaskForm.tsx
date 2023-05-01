@@ -1,24 +1,13 @@
 import { Button, Form, Input, Label } from 'semantic-ui-react';
 import { useFetcher } from '@remix-run/react';
 import { useEffect, useState } from 'react';
-
-const categoryOptions = [
-  {
-    key: 1,
-    text: 'Fitness 🏃‍♂️',
-    value: 1
-  },
-  {
-    key: 2,
-    text: 'Education 📚',
-    value: 2
-  }
-];
+import { CreateTaskErrorsObject } from '~/types/types';
+import { FetcherState, Route } from '~/types/constants';
 
 export default function CreateTaskForm() {
   const fetcher = useFetcher();
 
-  let errors = fetcher.data?.errors;
+  let errors: CreateTaskErrorsObject | undefined = fetcher.data?.formErrors;
 
   const [errorsState, setErrorsState] = useState(errors);
 
@@ -26,8 +15,16 @@ export default function CreateTaskForm() {
     if (errors && Object.keys(errors).length) setErrorsState(errors);
   }, [errors]);
 
+  // TODO: pass in options as a prop, see route_components/Form.tsx
+  // TODO: Fix error bump
+  // TODO: Add a better date picker
+
   return (
-    <fetcher.Form className='ui form' method='post' action='/app/createTask'>
+    <fetcher.Form
+      className='ui form'
+      method='post'
+      action={`${Route.CreateTask}`}
+    >
       <Form.Field error={errorsState?.titleError}>
         <label>Task Title:</label>
         <Input
@@ -89,7 +86,7 @@ export default function CreateTaskForm() {
         positive
         icon='add'
         content='Add Task'
-        loading={fetcher.state !== 'idle'}
+        loading={fetcher.state !== FetcherState.Idle.toLocaleLowerCase()}
       />
     </fetcher.Form>
   );

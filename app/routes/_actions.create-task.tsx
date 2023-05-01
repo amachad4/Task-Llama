@@ -1,39 +1,49 @@
 import { ActionArgs, json, redirect } from '@remix-run/node';
+import { CreateTaskErrorsObject } from '~/types/types';
 
 export function loader() {
   return redirect('/app');
 }
 
 // TODO create and move function to validation helper directory, posibly create unit tests
-function validateTaskFormData(formData) {
-  console.log('formData: ', formData);
+
+function validateTaskFormData({
+  title,
+  deadline,
+  category_lkp_id
+}: CreateTaskFormData): void | CreateTaskErrorsObject {
   const errorsObj = {
     titleError: false,
     deadlineError: false,
     categoryError: false
   };
-  if (!formData.title?.trim()) {
+  if (!title?.trim()) {
     errorsObj.titleError = true;
   }
-  if (!formData.deadline?.trim()) {
+  if (!deadline?.trim()) {
     errorsObj.deadlineError = true;
   }
-  if (!formData.category_lkp_id?.trim()) {
+  if (!category_lkp_id?.trim()) {
     errorsObj.categoryError = true;
   }
   const errorsArray = Object.values(errorsObj);
   const errorsArrayContainsAnError = errorsArray.some((error) =>
     Boolean(error)
   );
-  if (errorsArrayContainsAnError) return json({ errors: errorsObj });
+  if (errorsArrayContainsAnError) return errorsObj;
 }
+
+type CreateTaskFormData = {
+  title: string;
+  deadline: string;
+  category_lkp_id: string;
+};
 
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
-  const body = Object.fromEntries(formData.entries());
-  console.log('body: ', body);
-  const errors = validateTaskFormData(body);
-  if (errors) return errors;
+  const body = Object.fromEntries(formData.entries()) as CreateTaskFormData;
+  const formErrors = validateTaskFormData(body);
+  if (formErrors) return json({ formErrors }, { status: 422 });
   const deadline = new Date(body.deadline).toJSON();
 
   const createTodoItemObj = {

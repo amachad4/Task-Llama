@@ -3,6 +3,7 @@ import { Button, Icon, Menu, Segment } from 'semantic-ui-react';
 import CreateTaskForm from './CreateTaskForm';
 import TaskLlamaModal from './TaskLlamaModal';
 import { useState } from 'react';
+import { Route } from '~/types/constants';
 
 export default function NavBar() {
   const location = useLocation();
@@ -15,19 +16,19 @@ export default function NavBar() {
         <Menu.Item
           name='Task Llama'
           as={NavLink}
-          to='/app'
+          to={`${Route.App.toLowerCase()}`}
           className='mr-2 text-task-llama-white active:border-task-llama-white focus:border-task-llama-white hover:border-task-llama-white'
         />
         <Menu.Item
           name='home'
           as={NavLink}
-          to='/'
+          to={`${Route.Root}`}
           className='mr-2 text-task-llama-white'
         />
         <Menu.Menu position='right'>
           <Menu.Item
             as={NavLink}
-            to='/app/createTaskFormRoute'
+            to={`${Route.NewTask.toLowerCase()}`}
             className='mr-2'
           >
             <Icon

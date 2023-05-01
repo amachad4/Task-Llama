@@ -545,6 +545,10 @@ button {
   margin: 0px !important;
 }
 
+.mb-4 {
+  margin-bottom: 1rem !important;
+}
+
 .mb-5 {
   margin-bottom: 1.25rem !important;
 }
@@ -557,38 +561,12 @@ button {
   margin-top: -7rem !important;
 }
 
-.mb-4 {
-  margin-bottom: 1rem !important;
-}
-
-.mb-8 {
-  margin-bottom: 2rem !important;
-}
-
-.mb-10 {
-  margin-bottom: 2.5rem !important;
-}
-
-.mb-12 {
-  margin-bottom: 3rem !important;
-}
-
 .flex {
   display: flex !important;
 }
 
 .hidden {
   display: none !important;
-}
-
-.h-fit {
-  height: -moz-fit-content !important;
-  height: fit-content !important;
-}
-
-.max-h-fit {
-  max-height: -moz-fit-content !important;
-  max-height: fit-content !important;
 }
 
 .min-h-full {
@@ -599,33 +577,16 @@ button {
   min-height: 100vh !important;
 }
 
-.min-h-fit {
-  min-height: -moz-fit-content !important;
-  min-height: fit-content !important;
+.w-1\/2 {
+  width: 50% !important;
 }
 
 .w-\[100\%\] {
   width: 100% !important;
 }
 
-.w-5 {
-  width: 1.25rem !important;
-}
-
-.w-10 {
-  width: 2.5rem !important;
-}
-
-.w-1\/2 {
-  width: 50% !important;
-}
-
 .min-w-full {
   min-width: 100% !important;
-}
-
-.grow-0 {
-  flex-grow: 0 !important;
 }
 
 .basis-full {

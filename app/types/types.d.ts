@@ -7,3 +7,9 @@ export type Activity = {
   category_lkp_id: string;
   status_lkp_id: string;
 };
+
+export interface CreateTaskErrorsObject {
+  titleError: boolean;
+  deadlineError: boolean;
+  categoryError: boolean;
+}

@@ -1,6 +1,7 @@
 import type { V2_MetaFunction } from '@remix-run/node';
 import { Link } from '@remix-run/react';
 import { Button, Container, Header, Segment } from 'semantic-ui-react';
+import { Route } from '~/types/constants';
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: 'Welcome to List Llama!' }];
@@ -19,7 +20,7 @@ export default function Index() {
           </Header.Subheader>
           <Button
             as={Link}
-            to='app'
+            to={`${Route.App.toLowerCase()}`}
             inverted
             className='font-body text-task-llama-white hover:!bg-task-llama-white hover:text-task-llama-teal'
           >
