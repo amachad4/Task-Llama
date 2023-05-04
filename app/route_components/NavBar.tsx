@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from '@remix-run/react';
-import { Icon, Menu, Segment } from 'semantic-ui-react';
+import { Icon, Menu } from 'semantic-ui-react';
 import CreateTaskForm from './CreateTaskForm';
 import TaskLlamaModal from './TaskLlamaModal';
 import { useState } from 'react';

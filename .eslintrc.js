@@ -3,11 +3,14 @@ module.exports = {
   extends: [
     '@remix-run/eslint-config',
     '@remix-run/eslint-config/node',
-    'prettier'
+    'prettier',
   ],
   parserOptions: {
     parser: '@typescript-eslint/parser',
     project: './tsconfig.json',
-    tsconfigRootDir: __dirname
-  }
+    tsconfigRootDir: __dirname,
+  },
+  rules: {
+    'react/react-in-jsx-scope': 'off',
+  },
 };
