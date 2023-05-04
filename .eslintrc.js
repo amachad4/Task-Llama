@@ -5,6 +5,7 @@ module.exports = {
     '@remix-run/eslint-config/node',
     'prettier',
   ],
+  plugins: ['@typescript-eslint'],
   parserOptions: {
     parser: '@typescript-eslint/parser',
     project: './tsconfig.json',

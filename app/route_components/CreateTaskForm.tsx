@@ -1,4 +1,4 @@
-import { Button, Form, Input, Label, Segment } from 'semantic-ui-react';
+import { Button, Form, Input, Label } from 'semantic-ui-react';
 import { useFetcher } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import type { CreateTaskErrorsObject } from '~/types/types';
@@ -6,7 +6,6 @@ import { FetcherState, Route } from '~/types/constants';
 
 export default function CreateTaskForm() {
   const fetcher = useFetcher();
-  let testingLinterAgainAndAgain = 110;
 
   let errors: CreateTaskErrorsObject | undefined = fetcher.data?.formErrors;
 

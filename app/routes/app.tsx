@@ -1,14 +1,14 @@
+import type { DragEndEvent } from '@dnd-kit/core';
 import {
   DndContext,
-  DragEndEvent,
   PointerSensor,
   closestCenter,
-  useSensor
+  useSensor,
 } from '@dnd-kit/core';
 import {
   SortableContext,
   arrayMove,
-  verticalListSortingStrategy
+  verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { json } from '@remix-run/node';
 import { Outlet, useLoaderData } from '@remix-run/react';
@@ -17,7 +17,7 @@ import { Grid, Header } from 'semantic-ui-react';
 import LeftNav from '~/route_components/LeftNav';
 import NavBar from '~/route_components/NavBar';
 import TaskCard from '~/route_components/TaskCard';
-import { Activity } from '~/types/types';
+import type { Activity } from '~/types/types';
 
 interface loaderData {
   todoList: Activity[];
@@ -27,7 +27,7 @@ export async function loader() {
   let todoListQuery;
   try {
     todoListQuery = await fetch('http://localhost:5000/api/activities', {
-      method: 'GET'
+      method: 'GET',
     });
   } catch (e) {
     throw json({ status: 503 }, { statusText: 'Please try again later' });
@@ -46,7 +46,7 @@ export default function TaskLlamaAppLayout() {
 
   useEffect(() => {
     setItems(todoList);
-  }, [todoList.length]);
+  }, [todoList]);
 
   const handleDrag = ({ active, over }: DragEndEvent) => {
     if (over) {

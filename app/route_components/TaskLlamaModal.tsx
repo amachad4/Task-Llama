@@ -1,6 +1,6 @@
-import { NavLink, useNavigate } from '@remix-run/react';
-import { useState, PropsWithChildren } from 'react';
-import { Button, Header, Icon, Modal } from 'semantic-ui-react';
+import { useNavigate } from '@remix-run/react';
+import type { PropsWithChildren } from 'react';
+import { Button, Header, Modal } from 'semantic-ui-react';
 
 interface TaskLlamaModalCommonProps {
   open: boolean;
@@ -21,7 +21,7 @@ export default function TaskLlamaModal({
   open,
   title,
   subTitle,
-  modalDescription
+  modalDescription,
 }: PropsWithChildren<TaskLlamaModalProps>) {
   const navigate = useNavigate();
   return (
