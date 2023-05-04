@@ -68,7 +68,7 @@ export default function CreateTaskForm() {
                         if (errorsState) setErrorsState(undefined);
                     }}
                 >
-                    <option value='' selected aria-readonly>
+                    <option value='' selected>
                         Select a Category
                     </option>
                     <option value='1'>Education</option>
