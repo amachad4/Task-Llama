@@ -16,7 +16,8 @@ export default function Index() {
         </Header>
         <Container className='text-center'>
           <Header.Subheader className='text-task-llama-white pb-4 text-sub-heading'>
-            A better way to track your day to day tasks!
+            A better way to track your day to day tasks, say goodbye to chaos
+            and hello to productivity!
           </Header.Subheader>
           <Button
             as={Link}
