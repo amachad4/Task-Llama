@@ -13,7 +13,11 @@ export default function Form({ options }: FormProps) {
         <label>Select a category:</label>
         <select name='category_lkp_id' id='category'>
           {options.map((option) => {
-            return <option value={option.value}>{option.label}</option>;
+            return (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            );
           })}
         </select>
         <input hidden readOnly value='1' name='status_lkp_id' />
