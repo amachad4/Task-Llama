@@ -1,3 +1,4 @@
+import React from 'react';
 import { NavLink, useLocation } from '@remix-run/react';
 import { Icon, Menu } from 'semantic-ui-react';
 import { useState } from 'react';
