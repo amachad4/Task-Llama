@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { Route } from '~/types/constants';
 
 export default function NavBar() {
-  const location = useLocation();
   // TODO: posibly use MobX to pass down open and close modal state
   const [open, setOpen] = useState(false);
 
