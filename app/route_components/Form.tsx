@@ -10,7 +10,7 @@ export default function Form({ options }: FormProps) {
         <input name='title' type='text' id='title' />
         <label htmlFor='deadline'>Deadline:</label>
         <input name='deadline' type='date' id='deadline' />
-        <label>Choose a category:</label>
+        <label>Select a category:</label>
         <select name='category_lkp_id' id='category'>
           {options.map((option) => {
             return <option value={option.value}>{option.label}</option>;
