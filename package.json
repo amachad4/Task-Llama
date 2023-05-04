@@ -11,9 +11,6 @@
     "lint": "eslint app --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install"
   },
-  "lint-staged": {
-    "*.{ts,tsx}": "npm run lint"
-  },
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/modifiers": "^6.0.1",

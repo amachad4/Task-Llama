@@ -1,4 +1,4 @@
-import { Activity } from '~/types/types';
+import type { Activity } from '~/types/types';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Card } from 'semantic-ui-react';
@@ -6,11 +6,11 @@ import { format } from 'date-fns';
 
 export default function TaskCard({ activity }: { activity: Activity }) {
   const { setNodeRef, listeners, attributes, transform } = useSortable({
-    id: activity.id
+    id: activity.id,
   });
 
   const style = {
-    transform: CSS.Transform.toString(transform)
+    transform: CSS.Transform.toString(transform),
   };
 
   const date = format(new Date(activity.deadline), 'yyyy-MM-dd');
