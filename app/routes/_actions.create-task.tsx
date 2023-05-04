@@ -1,8 +1,8 @@
-import { ActionArgs, json, redirect } from "@remix-run/node";
-import { CreateTaskErrorsObject } from "~/types/types";
+import { ActionArgs, json, redirect } from '@remix-run/node';
+import { CreateTaskErrorsObject } from '~/types/types';
 
 export function loader() {
-  return redirect("/app");
+  return redirect('/app');
 }
 
 // TODO create and move function to validation helper directory, posibly create unit tests
@@ -10,12 +10,12 @@ export function loader() {
 function validateTaskFormData({
   title,
   deadline,
-  category_lkp_id,
+  category_lkp_id
 }: CreateTaskFormData) {
   const errorsObj: CreateTaskErrorsObject = {
     titleError: false,
     deadlineError: false,
-    categoryError: false,
+    categoryError: false
   };
   if (!title?.trim()) {
     errorsObj.titleError = true;
@@ -49,15 +49,15 @@ export async function action({ request }: ActionArgs) {
   const createTodoItemObj = {
     ...body,
     deadline: deadline,
-    created_at: new Date().toJSON(),
+    created_at: new Date().toJSON()
   };
-  const rawResponse = await fetch("http://localhost:5000/api/activities", {
-    method: "POST",
+  const rawResponse = await fetch('http://localhost:5000/api/activities', {
+    method: 'POST',
     body: JSON.stringify(createTodoItemObj),
     headers: {
-      "Content-Type": "application/json",
-    },
+      'Content-Type': 'application/json'
+    }
   });
   const content = await rawResponse.json();
-  return redirect("/app");
+  return redirect('/app');
 }
