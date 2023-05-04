@@ -1,14 +1,9 @@
-import { NavLink, useLocation } from '@remix-run/react';
-import { Button, Icon, Menu, Segment } from 'semantic-ui-react';
-import CreateTaskForm from './CreateTaskForm';
-import TaskLlamaModal from './TaskLlamaModal';
-import { useState } from 'react';
+import { NavLink } from '@remix-run/react';
+import { Icon, Menu } from 'semantic-ui-react';
 import { Route } from '~/types/constants';
 
 export default function NavBar() {
-  const location = useLocation();
   // TODO: posibly use MobX to pass down open and close modal state
-  const [open, setOpen] = useState(false);
 
   return (
     <div className='m-0 p-2 bg-task-llama-teal '>

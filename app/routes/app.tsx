@@ -1,33 +1,37 @@
+import type { DragEndEvent } from '@dnd-kit/core';
+import {
+  DndContext,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  arrayMove,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { json } from '@remix-run/node';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import LeftNav from '~/route_components/LeftNav';
 import NavBar from '~/route_components/NavBar';
 import TaskCard from '~/route_components/TaskCard';
-import { Activity } from '~/types/types';
-import {
-  DndContext,
-  useSensor,
-  PointerSensor,
-  closestCenter,
-  DragEndEvent
-} from '@dnd-kit/core';
-import {
-  arrayMove,
-  useSortable,
-  SortableContext,
-  verticalListSortingStrategy,
-  horizontalListSortingStrategy
-} from '@dnd-kit/sortable';
+import type { Activity } from '~/types/types';
 
 interface loaderData {
   todoList: Activity[];
 }
 
-export async function loader(): Promise<loaderData> {
-  const todoListQuery = await fetch('http://localhost:5000/api/activities', {
-    method: 'GET'
-  });
+export async function loader() {
+  let todoListQuery;
+  try {
+    todoListQuery = await fetch('http://localhost:5000/api/activities', {
+      method: 'GET',
+    });
+  } catch (e) {
+    throw json({ status: 503 }, { statusText: 'Please try again later' });
+  }
   if (!todoListQuery.ok) throw new Error('Could not fetch your todo list');
   const todoListArray = await todoListQuery.json();
 
@@ -42,7 +46,7 @@ export default function TaskLlamaAppLayout() {
 
   useEffect(() => {
     setItems(todoList);
-  }, [todoList.length]);
+  }, [todoList]);
 
   const handleDrag = ({ active, over }: DragEndEvent) => {
     if (over) {

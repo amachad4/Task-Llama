@@ -1,7 +1,7 @@
 import { Button, Form, Input, Label } from 'semantic-ui-react';
 import { useFetcher } from '@remix-run/react';
 import { useEffect, useState } from 'react';
-import { CreateTaskErrorsObject } from '~/types/types';
+import type { CreateTaskErrorsObject } from '~/types/types';
 import { FetcherState, Route } from '~/types/constants';
 
 export default function CreateTaskForm() {
@@ -68,7 +68,7 @@ export default function CreateTaskForm() {
             if (errorsState) setErrorsState(undefined);
           }}
         >
-          <option value='' selected aria-readonly>
+          <option value='' selected>
             Select a Category
           </option>
           <option value='1'>Education</option>
