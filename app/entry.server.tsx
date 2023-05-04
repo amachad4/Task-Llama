@@ -56,7 +56,7 @@ function handleBotRequest(
           resolve(
             new Response(body, {
               headers: responseHeaders,
-              status: responseStatusCode
+              status: responseStatusCode,
             })
           );
 
@@ -68,7 +68,7 @@ function handleBotRequest(
         onError(error: unknown) {
           responseStatusCode = 500;
           console.error(error);
-        }
+        },
       }
     );
 
@@ -98,7 +98,7 @@ function handleBrowserRequest(
           resolve(
             new Response(body, {
               headers: responseHeaders,
-              status: responseStatusCode
+              status: responseStatusCode,
             })
           );
 
@@ -110,7 +110,7 @@ function handleBrowserRequest(
         onError(error: unknown) {
           console.error(error);
           responseStatusCode = 500;
-        }
+        },
       }
     );
 
