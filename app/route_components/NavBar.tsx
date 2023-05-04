@@ -6,7 +6,6 @@ import { Route } from '~/types/constants';
 
 export default function NavBar() {
   // TODO: posibly use MobX to pass down open and close modal state
-  const [open, setOpen] = useState(false);
 
   return (
     <div className='m-0 p-2 bg-task-llama-teal '>
