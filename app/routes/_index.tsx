@@ -12,7 +12,7 @@ export default function Index() {
     <Container className='bg-task-llama-teal min-w-full min-h-screen flex flex-col items-center justify-center'>
       <Container className='mt-[-7rem]'>
         <Header className='text-heading text-task-llama-white m-0 text-center pb-5'>
-          Welcome to Task Llama 🦙 Test branch
+          Welcome to Task Llama 🦙
         </Header>
         <Container className='text-center'>
           <Header.Subheader className='text-task-llama-white pb-4 text-sub-heading'>
