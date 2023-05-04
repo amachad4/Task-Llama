@@ -1,6 +1,5 @@
 import { NavLink, useLocation } from '@remix-run/react';
 import { Icon, Menu } from 'semantic-ui-react';
-import TaskLlamaModal from './TaskLlamaModal';
 import { useState } from 'react';
 import { Route } from '~/types/constants';
 
