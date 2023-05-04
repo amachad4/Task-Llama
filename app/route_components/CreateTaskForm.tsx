@@ -6,7 +6,7 @@ import { FetcherState, Route } from '~/types/constants';
 
 export default function CreateTaskForm() {
   const fetcher = useFetcher();
-  let testing;
+  let testingLinter;
 
   let errors: CreateTaskErrorsObject | undefined = fetcher.data?.formErrors;
 
