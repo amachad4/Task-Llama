@@ -52,13 +52,30 @@ export async function action({ request }: ActionArgs) {
     deadline: deadline,
     created_at: new Date().toJSON(),
   };
-  await fetch('http://localhost:5000/api/activities', {
-    method: 'POST',
-    body: JSON.stringify(createTodoItemObj),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  // const content = await rawResponse.json();
+  let rawResponse: undefined | Response;
+  try {
+    rawResponse = await fetch('http://localhost:5000/api/activities', {
+      method: 'POST',
+      body: JSON.stringify(createTodoItemObj),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    });
+  } catch (e) {
+    throw json({ message: e }, { status: 503 });
+  }
+
+  if (!rawResponse.ok)
+    throw json({ message: 'Could not create activity' }, { status: 500 });
+
+  const response = await rawResponse.json();
+
+  if (response?.error)
+    throw json(
+      { message: response.error.statusText },
+      { status: response.error.statusCode }
+    );
+
   return redirect('/app');
 }
