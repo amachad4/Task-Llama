@@ -24,18 +24,26 @@ interface loaderData {
 }
 
 export async function loader() {
-  let todoListQuery;
+  let rawResponse: undefined | Response;
   try {
-    todoListQuery = await fetch('http://localhost:5000/api/activities', {
+    rawResponse = await fetch('http://localhost:5000/api/activities', {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
     });
   } catch (e) {
-    throw json({ status: 503 }, { statusText: 'Please try again later' });
+    throw json({ message: e }, { status: 503 });
   }
-  if (!todoListQuery.ok) throw new Error('Could not fetch your todo list');
-  const todoListArray = await todoListQuery.json();
+  if (!rawResponse.ok)
+    throw json({ message: 'Could not get activities' }, { status: 500 });
 
-  return { todoList: todoListArray };
+  const data = await rawResponse.json();
+
+  const { data: todoList } = data;
+
+  return { todoList };
 }
 
 export default function TaskLlamaAppLayout() {
