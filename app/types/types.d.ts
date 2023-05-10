@@ -1,4 +1,4 @@
-export type Activity = {
+export type Task = {
   id: string;
   title: string;
   deadline: string;
@@ -13,3 +13,5 @@ export interface CreateTaskErrorsObject {
   deadlineError: boolean;
   categoryError: boolean;
 }
+
+export type AtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>;

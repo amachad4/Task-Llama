@@ -3,53 +3,38 @@ import {
   DndContext,
   PointerSensor,
   closestCenter,
-  useSensor,
+  useSensor
 } from '@dnd-kit/core';
 import {
   SortableContext,
   arrayMove,
-  verticalListSortingStrategy,
+  verticalListSortingStrategy
 } from '@dnd-kit/sortable';
-import { json } from '@remix-run/node';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import LeftNav from '~/route_components/LeftNav';
 import NavBar from '~/route_components/NavBar';
 import TaskCard from '~/route_components/TaskCard';
-import type { Activity } from '~/types/types';
+import type { AtLeast, Task } from '~/types/types';
+import getTasks from '~/models/getTasks.server';
 
 interface loaderData {
-  todoList: Activity[];
+  todoList: AtLeast<Task, 'id' | 'title' | 'deadline'>[];
 }
 
 export async function loader() {
-  let rawResponse: undefined | Response;
-  try {
-    rawResponse = await fetch('http://localhost:5000/api/activities', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    });
-  } catch (e) {
-    throw json({ message: e }, { status: 503 });
-  }
-  if (!rawResponse.ok)
-    throw json({ message: 'Could not get activities' }, { status: 500 });
-
-  const data = await rawResponse.json();
-
-  const { data: todoList } = data;
-
+  const queryTasks = await getTasks();
+  const {
+    tasks: { data: todoList }
+  } = queryTasks;
   return { todoList };
 }
 
 export default function TaskLlamaAppLayout() {
   const loaderData = useLoaderData<loaderData>();
   const { todoList } = loaderData;
-  const [items, setItems] = useState<Array<Activity>>(todoList);
+  const [items, setItems] = useState<loaderData['todoList']>(todoList);
   const sensor = useSensor(PointerSensor);
 
   useEffect(() => {
@@ -94,7 +79,7 @@ export default function TaskLlamaAppLayout() {
                       strategy={verticalListSortingStrategy}
                     >
                       {items.map((item) => {
-                        return <TaskCard key={item.id} activity={item} />;
+                        return <TaskCard key={item.id} task={item} />;
                       })}
                     </SortableContext>
                   </Grid.Column>
