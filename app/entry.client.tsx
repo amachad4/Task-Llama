@@ -7,12 +7,20 @@
 import { RemixBrowser } from '@remix-run/react';
 import { startTransition, StrictMode } from 'react';
 import { hydrateRoot } from 'react-dom/client';
+import { initApollo } from './context/apollo';
+import { ApolloProvider } from '@apollo/client';
+
+function Client() {
+  const client = initApollo(false);
+  return (
+    <ApolloProvider client={client}>
+      <StrictMode>
+        <RemixBrowser />
+      </StrictMode>
+    </ApolloProvider>
+  );
+}
 
 startTransition(() => {
-  hydrateRoot(
-    document,
-    <StrictMode>
-      <RemixBrowser />
-    </StrictMode>
-  );
+  hydrateRoot(document, <Client />);
 });

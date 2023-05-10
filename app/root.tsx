@@ -9,6 +9,8 @@ import {
 } from '@remix-run/react';
 import tailwindStyles from './styles/tailwind.css';
 import semanticUiStyles from 'semantic-ui-css/semantic.min.css';
+import ApolloContext from './context/apollo';
+import { useContext } from 'react';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: semanticUiStyles },
@@ -16,6 +18,7 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
+  const initialState = useContext(ApolloContext);
   return (
     <html lang='en'>
       <head>
@@ -29,6 +32,13 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.__INITIAL_STATE__=${JSON.stringify(
+              initialState
+            ).replace(/</g, '\\u003c')};`,
+          }}
+        />
       </body>
     </html>
   );
