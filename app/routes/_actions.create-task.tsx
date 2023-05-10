@@ -11,12 +11,12 @@ export function loader() {
 function validateTaskFormData({
   title,
   deadline,
-  category_lkp_id,
+  category_lkp_id
 }: CreateTaskFormData) {
   const errorsObj: CreateTaskErrorsObject = {
     titleError: false,
     deadlineError: false,
-    categoryError: false,
+    categoryError: false
   };
   if (!title?.trim()) {
     errorsObj.titleError = true;
@@ -50,7 +50,7 @@ export async function action({ request }: ActionArgs) {
   const createTodoItemObj = {
     ...body,
     deadline: deadline,
-    created_at: new Date().toJSON(),
+    created_at: new Date().toJSON()
   };
   let rawResponse: undefined | Response;
   try {
@@ -59,15 +59,15 @@ export async function action({ request }: ActionArgs) {
       body: JSON.stringify(createTodoItemObj),
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
+        Accept: 'application/json'
+      }
     });
   } catch (e) {
     throw json({ message: e }, { status: 503 });
   }
 
   if (!rawResponse.ok)
-    throw json({ message: 'Could not create activity' }, { status: 500 });
+    throw json({ message: 'Could not create task' }, { status: 500 });
 
   const response = await rawResponse.json();
 
