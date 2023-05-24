@@ -8,6 +8,12 @@ export type Task = {
   status_lkp_id: string;
 };
 
+export interface User {
+  displayName: string;
+  token: string;
+  username: string;
+}
+
 export interface CreateTaskErrorsObject {
   titleError: boolean;
   deadlineError: boolean;

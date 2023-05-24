@@ -3,12 +3,12 @@ import {
   DndContext,
   PointerSensor,
   closestCenter,
-  useSensor
+  useSensor,
 } from '@dnd-kit/core';
 import {
   SortableContext,
   arrayMove,
-  verticalListSortingStrategy
+  verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { useEffect, useState } from 'react';
@@ -17,16 +17,22 @@ import LeftNav from '~/route_components/LeftNav';
 import NavBar from '~/route_components/NavBar';
 import TaskCard from '~/route_components/TaskCard';
 import type { AtLeast, Task } from '~/types/types';
-import getTasks from '~/models/getTasks.server';
+import getTasks from '~/data/getTasks.server';
+import type { LoaderArgs } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
+import { getSession } from '~/auth/session.server';
+import { Route } from '~/types/constants';
 
 interface loaderData {
   todoList: AtLeast<Task, 'id' | 'title' | 'deadline'>[];
 }
 
-export async function loader() {
-  const queryTasks = await getTasks();
+export async function loader({ request }: LoaderArgs) {
+  const token = await getSession(request);
+  if (!token) throw redirect(Route.Login);
+  const queryTasks = await getTasks(token);
   const {
-    tasks: { data: todoList }
+    tasks: { data: todoList },
   } = queryTasks;
   return { todoList };
 }
