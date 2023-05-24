@@ -9,4 +9,5 @@ export const enum Route {
   App = '/APP',
   CreateTask = '/CREATE-TASK',
   NewTask = '/APP/NEW-TASK',
+  Login = '/LOGIN',
 }

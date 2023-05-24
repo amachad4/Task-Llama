@@ -1,9 +1,10 @@
 import type { ActionArgs } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
+import { Route } from '~/types/constants';
 import type { CreateTaskErrorsObject } from '~/types/types';
 
 export function loader() {
-  return redirect('/app');
+  return redirect(Route.App.toLowerCase());
 }
 
 // TODO create and move function to validation helper directory, posibly create unit tests
@@ -11,12 +12,12 @@ export function loader() {
 function validateTaskFormData({
   title,
   deadline,
-  category_lkp_id
+  category_lkp_id,
 }: CreateTaskFormData) {
   const errorsObj: CreateTaskErrorsObject = {
     titleError: false,
     deadlineError: false,
-    categoryError: false
+    categoryError: false,
   };
   if (!title?.trim()) {
     errorsObj.titleError = true;
@@ -50,7 +51,7 @@ export async function action({ request }: ActionArgs) {
   const createTodoItemObj = {
     ...body,
     deadline: deadline,
-    created_at: new Date().toJSON()
+    created_at: new Date().toJSON(),
   };
   let rawResponse: undefined | Response;
   try {
@@ -59,8 +60,8 @@ export async function action({ request }: ActionArgs) {
       body: JSON.stringify(createTodoItemObj),
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
+        Accept: 'application/json',
+      },
     });
   } catch (e) {
     throw json({ message: e }, { status: 503 });
@@ -77,5 +78,5 @@ export async function action({ request }: ActionArgs) {
       { status: response.error.statusCode }
     );
 
-  return redirect('/app');
+  return redirect(Route.App.toLowerCase());
 }
