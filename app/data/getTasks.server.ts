@@ -6,8 +6,8 @@ type getTasksQueryResponse = {
   tasks: { data: AtLeast<Task, 'id' | 'title' | 'deadline'> };
 };
 
-export default async function getTasks() {
-  const client = initApollo();
+export default async function getTasks(token: string) {
+  const client = initApollo(token);
   const query = client.query<getTasksQueryResponse>({
     query: getTasksQuery,
   });
