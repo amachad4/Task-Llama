@@ -21,7 +21,7 @@ export default function Index() {
           </Header.Subheader>
           <Button
             as={Link}
-            to={`${Route.App.toLowerCase()}`}
+            to={`${Route.Auth.toLowerCase()}`}
             inverted
             className='font-body text-task-llama-white hover:!bg-task-llama-white hover:text-task-llama-teal'
           >

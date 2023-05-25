@@ -1,5 +1,5 @@
 import { createCookieSessionStorage, redirect } from '@remix-run/node';
-import type { Route } from '~/types/constants';
+import { Route } from '~/types/constants';
 
 const SESSION_SECRET = process.env.SESSION_SECRET;
 
@@ -9,8 +9,8 @@ export const sessionStorage = createCookieSessionStorage({
     secrets: [SESSION_SECRET],
     sameSite: 'lax',
     maxAge: 60 * 60 * 24 * 7, // 7 days
-    httpOnly: true,
-  },
+    httpOnly: true
+  }
 });
 
 export async function createUserSession(token: string, redirectPath: Route) {
@@ -18,8 +18,20 @@ export async function createUserSession(token: string, redirectPath: Route) {
   session.set('jwt', token);
   return redirect(redirectPath.toLowerCase(), {
     headers: {
-      'Set-Cookie': await sessionStorage.commitSession(session),
-    },
+      'Set-Cookie': await sessionStorage.commitSession(session)
+    }
+  });
+}
+
+export async function destroyUserSession(request: Request) {
+  const session = await sessionStorage.getSession(
+    request.headers.get('Cookie')
+  );
+
+  return redirect(`${Route.Root}`, {
+    headers: {
+      'Set-Cookie': await sessionStorage.destroySession(session)
+    }
   });
 }
 

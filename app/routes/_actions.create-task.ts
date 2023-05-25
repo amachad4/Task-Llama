@@ -4,7 +4,7 @@ import { Route } from '~/types/constants';
 import type { CreateTaskErrorsObject } from '~/types/types';
 
 export function loader() {
-  return redirect(Route.App.toLowerCase());
+  throw redirect(Route.App.toLowerCase());
 }
 
 // TODO create and move function to validation helper directory, posibly create unit tests
@@ -12,12 +12,12 @@ export function loader() {
 function validateTaskFormData({
   title,
   deadline,
-  category_lkp_id,
+  category_lkp_id
 }: CreateTaskFormData) {
   const errorsObj: CreateTaskErrorsObject = {
     titleError: false,
     deadlineError: false,
-    categoryError: false,
+    categoryError: false
   };
   if (!title?.trim()) {
     errorsObj.titleError = true;
@@ -41,6 +41,8 @@ type CreateTaskFormData = {
   category_lkp_id: string;
 };
 
+// TODO: Send token thru header
+
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
   const body = Object.fromEntries(formData.entries()) as CreateTaskFormData;
@@ -51,7 +53,7 @@ export async function action({ request }: ActionArgs) {
   const createTodoItemObj = {
     ...body,
     deadline: deadline,
-    created_at: new Date().toJSON(),
+    created_at: new Date().toJSON()
   };
   let rawResponse: undefined | Response;
   try {
@@ -60,8 +62,8 @@ export async function action({ request }: ActionArgs) {
       body: JSON.stringify(createTodoItemObj),
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
+        Accept: 'application/json'
+      }
     });
   } catch (e) {
     throw json({ message: e }, { status: 503 });

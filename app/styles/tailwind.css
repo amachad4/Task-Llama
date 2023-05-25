@@ -557,6 +557,10 @@ button {
   margin-right: 0.5rem !important;
 }
 
+.mt-1 {
+  margin-top: 0.25rem !important;
+}
+
 .mt-\[-7rem\] {
   margin-top: -7rem !important;
 }
@@ -615,6 +619,10 @@ button {
   justify-content: space-between !important;
 }
 
+.rounded-lg {
+  border-radius: 0.5rem !important;
+}
+
 .border-none {
   border-style: none !important;
 }
@@ -629,8 +637,27 @@ button {
   background-color: rgb(0 173 181 / var(--tw-bg-opacity)) !important;
 }
 
+.bg-task-llama-white {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(238 238 238 / var(--tw-bg-opacity)) !important;
+}
+
+.p-10 {
+  padding: 2.5rem !important;
+}
+
 .p-2 {
   padding: 0.5rem !important;
+}
+
+.px-12 {
+  padding-left: 3rem !important;
+  padding-right: 3rem !important;
+}
+
+.py-5 {
+  padding-top: 1.25rem !important;
+  padding-bottom: 1.25rem !important;
 }
 
 .pb-4 {
@@ -650,11 +677,21 @@ button {
 }
 
 .text-heading {
-  font-size: 4rem !important;
+  font-size: 3rem !important;
 }
 
 .text-sub-heading {
   font-size: 2rem !important;
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(239 68 68 / var(--tw-text-opacity)) !important;
+}
+
+.text-task-llama-teal {
+  --tw-text-opacity: 1 !important;
+  color: rgb(0 173 181 / var(--tw-text-opacity)) !important;
 }
 
 .text-task-llama-white {
@@ -693,6 +730,15 @@ button {
 
 .hover\:cursor-pointer:hover {
   cursor: pointer !important;
+}
+
+.hover\:border-b-2:hover {
+  border-bottom-width: 2px !important;
+}
+
+.hover\:border-task-llama-teal:hover {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(0 173 181 / var(--tw-border-opacity)) !important;
 }
 
 .hover\:border-task-llama-white:hover {
