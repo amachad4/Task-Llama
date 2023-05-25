@@ -13,7 +13,7 @@ export async function action({ request }: ActionArgs) {
   const userLoginResponse = await userLogin(body);
 
   const {
-    user: { token },
+    user: { token }
   } = userLoginResponse;
 
   if (token) {

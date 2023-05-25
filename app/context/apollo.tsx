@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache, from } from '@apollo/client';
 import { RestLink } from 'apollo-link-rest';
 
 const isBrowser = typeof window !== 'undefined';
@@ -15,15 +15,15 @@ export function initApollo(
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      ...(token && { Authorization: `Bearer ${token}` }),
+      ...(token && { Authorization: `Bearer ${token}` })
     },
-    credentials: 'same-origin',
+    credentials: 'same-origin'
   });
 
   return new ApolloClient({
-    link: restLink,
+    link: from([restLink]),
     cache: new InMemoryCache().restore(initialState),
-    ssrMode,
+    ssrMode
   });
 }
 

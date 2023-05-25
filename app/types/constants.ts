@@ -1,13 +1,18 @@
 export const enum FetcherState {
   Idle = 'IDLE',
   Loading = 'LOADING',
-  Submitting = 'SUBMITTING',
+  Submitting = 'SUBMITTING'
 }
 
 export const enum Route {
   Root = '/',
   App = '/APP',
+  Auth = '/AUTH',
   CreateTask = '/CREATE-TASK',
   NewTask = '/APP/NEW-TASK',
-  Login = '/LOGIN',
+  Login = '/AUTH/LOGIN',
+  Register = '/AUTH/REGISTER',
+  UserLogin = '/USER-LOGIN',
+  UserLogout = '/USER-LOGOUT',
+  UserRegistration = '/USER-REGISTRATION'
 }

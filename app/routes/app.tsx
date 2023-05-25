@@ -3,12 +3,12 @@ import {
   DndContext,
   PointerSensor,
   closestCenter,
-  useSensor,
+  useSensor
 } from '@dnd-kit/core';
 import {
   SortableContext,
   arrayMove,
-  verticalListSortingStrategy,
+  verticalListSortingStrategy
 } from '@dnd-kit/sortable';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { useEffect, useState } from 'react';
@@ -29,10 +29,10 @@ interface loaderData {
 
 export async function loader({ request }: LoaderArgs) {
   const token = await getSession(request);
-  if (!token) throw redirect(Route.Login);
+  if (!token) throw redirect(`${Route.Login.toLowerCase()}`);
   const queryTasks = await getTasks(token);
   const {
-    tasks: { data: todoList },
+    tasks: { data: todoList }
   } = queryTasks;
   return { todoList };
 }
