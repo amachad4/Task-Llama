@@ -8,7 +8,7 @@ export const meta: V2_MetaFunction = () => {
 
 export default function Index() {
   return (
-    <Container className='bg-gradient-30 min-w-full min-h-screen flex flex-col items-center justify-center'>
+    <Container className='bg-gradient-45 min-w-full min-h-screen flex flex-col items-center justify-center'>
       <SplashPage />
     </Container>
   );

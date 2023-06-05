@@ -8,7 +8,7 @@ export default function NavBar() {
   const fetcher = useFetcher();
 
   return (
-    <div className='m-0 p-2 bg-gradient-30'>
+    <div className='m-0 p-2 bg-gradient-45'>
       <Menu pointing secondary className='border-none'>
         <Menu.Item
           name='Task Llama'
