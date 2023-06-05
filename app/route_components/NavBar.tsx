@@ -8,19 +8,19 @@ export default function NavBar() {
   const fetcher = useFetcher();
 
   return (
-    <div className='m-0 p-2 bg-task-llama-teal '>
+    <div className='m-0 p-2 bg-gradient-45'>
       <Menu pointing secondary className='border-none'>
         <Menu.Item
           name='Task Llama'
           as={NavLink}
           to={`${Route.App.toLowerCase()}`}
-          className='mr-2 text-task-llama-white active:border-task-llama-white focus:border-task-llama-white hover:border-task-llama-white'
+          className='mr-2 hover:opacity-50 text-task-llama-white active:border-task-llama-white focus:border-task-llama-white hover:border-task-llama-white'
         />
         <Menu.Item
           name='home'
           as={NavLink}
           to={`${Route.Root}`}
-          className='mr-2 text-task-llama-white'
+          className='mr-2 hover:opacity-50 text-task-llama-white'
         />
         <Menu.Menu position='right'>
           <Menu.Item
