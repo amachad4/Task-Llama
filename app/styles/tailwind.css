@@ -645,6 +645,15 @@ button {
   padding: 2.5rem !important;
 }
 
+.bg-task-llama-white {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(238 238 238 / var(--tw-bg-opacity)) !important;
+}
+
+.p-10 {
+  padding: 2.5rem !important;
+}
+
 .p-2 {
   padding: 0.5rem !important;
 }
