@@ -17,6 +17,9 @@ module.exports = {
         'task-llama-gray-dark': '#222831',
         'task-llama-light-gray': '#F5F5F5',
         'task-llama-gray': '#393E46'
+      },
+      backgroundImage: {
+        'gradient-30': 'linear-gradient(45deg, #393E46 60%, #222831 40%)'
       }
     }
   },
