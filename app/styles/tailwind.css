@@ -637,17 +637,8 @@ button {
   background-color: rgb(238 238 238 / var(--tw-bg-opacity)) !important;
 }
 
-.bg-gradient-30 {
+.bg-gradient-45 {
   background-image: linear-gradient(45deg, #393e46 60%, #222831 40%) !important;
-}
-
-.p-10 {
-  padding: 2.5rem !important;
-}
-
-.bg-task-llama-white {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(238 238 238 / var(--tw-bg-opacity)) !important;
 }
 
 .p-10 {
