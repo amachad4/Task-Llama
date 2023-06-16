@@ -1,31 +1,16 @@
-import type { DragEndEvent } from '@dnd-kit/core';
-import {
-  DndContext,
-  PointerSensor,
-  closestCenter,
-  useSensor
-} from '@dnd-kit/core';
-import {
-  SortableContext,
-  arrayMove,
-  verticalListSortingStrategy
-} from '@dnd-kit/sortable';
-import { Outlet, useLoaderData } from '@remix-run/react';
-import { useEffect, useState } from 'react';
+import { DndContext } from '@dnd-kit/core';
+import { Outlet } from '@remix-run/react';
+import { useState } from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import LeftNav from '~/route_components/LeftNav';
 import NavBar from '~/route_components/NavBar';
-import TaskCard from '~/route_components/TaskCard';
-import type { AtLeast, Task } from '~/types/types';
 import getTasks from '~/data/getTasks.server';
 import type { LoaderArgs } from '@remix-run/node';
 import { redirect } from '@remix-run/node';
 import { getSession } from '~/auth/session.server';
 import { Route } from '~/types/constants';
-
-interface loaderData {
-  todoList: AtLeast<Task, 'id' | 'title' | 'deadline'>[];
-}
+import { Droppable } from '~/route_components/Droppable';
+import { Draggable } from '~/route_components/Draggable';
 
 export async function loader({ request }: LoaderArgs) {
   const token = await getSession(request);
@@ -38,26 +23,43 @@ export async function loader({ request }: LoaderArgs) {
 }
 
 export default function TaskLlamaAppLayout() {
-  const loaderData = useLoaderData<loaderData>();
-  const { todoList } = loaderData;
-  const [items, setItems] = useState<loaderData['todoList']>(todoList);
-  const sensor = useSensor(PointerSensor);
+  const [isDropped, setIsDropped] = useState({
+    unstarted: true,
+    progress: false,
+    done: false
+  });
+  const draggableMarkup = <Draggable>Drag me</Draggable>;
 
-  useEffect(() => {
-    setItems(todoList);
-  }, [todoList]);
-
-  const handleDrag = ({ active, over }: DragEndEvent) => {
-    if (over) {
-      if (active.id !== over.id) {
-        setItems((array) => {
-          const oldIndex = array.findIndex((item) => item.id === active.id);
-          const newIndex = array.findIndex((item) => item.id === over.id);
-          return arrayMove(array, oldIndex, newIndex);
-        });
+  function handleDragEnd(event: any) {
+    if (event.over) {
+      switch (event.over.id) {
+        case 'unstarted':
+          console.log('ran');
+          setIsDropped({
+            unstarted: true,
+            progress: false,
+            done: false
+          });
+          break;
+        case 'progress':
+          setIsDropped({
+            unstarted: false,
+            progress: true,
+            done: false
+          });
+          break;
+        case 'completed':
+          setIsDropped({
+            unstarted: false,
+            progress: false,
+            done: true
+          });
+          break;
+        default:
+          break;
       }
     }
-  };
+  }
 
   // TODO: Abstract this component into usable route components
   // TODO: Fix drag and drop reorder issue, figure out lane drag and drop
@@ -70,34 +72,30 @@ export default function TaskLlamaAppLayout() {
             <LeftNav />
           </Grid.Column>
           <Grid.Column width={13} className='shadow-none'>
-            <DndContext
-              sensors={[sensor]}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDrag}
-            >
-              <Grid columns={3} divided className='min-h-full'>
-                <Grid.Row>
+            <Grid columns={3} divided className='min-h-full'>
+              <Grid.Row>
+                <DndContext onDragEnd={handleDragEnd}>
                   <Grid.Column>
                     <Header as='h3'>Unstarted</Header>
-
-                    <SortableContext
-                      items={todoList.map((todo) => todo.id)}
-                      strategy={verticalListSortingStrategy}
-                    >
-                      {items.map((item) => {
-                        return <TaskCard key={item.id} task={item} />;
-                      })}
-                    </SortableContext>
+                    <Droppable id='unstarted'>
+                      {isDropped.unstarted ? draggableMarkup : 'Drop here'}
+                    </Droppable>
                   </Grid.Column>
                   <Grid.Column>
                     <Header as='h3'>In Progress</Header>
+                    <Droppable id='progress'>
+                      {isDropped.progress ? draggableMarkup : 'Drop here'}
+                    </Droppable>
                   </Grid.Column>
                   <Grid.Column>
                     <Header as='h3'>Completed</Header>
+                    <Droppable id='completed'>
+                      {isDropped.done ? draggableMarkup : 'Drop here'}
+                    </Droppable>
                   </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </DndContext>
+                </DndContext>
+              </Grid.Row>
+            </Grid>
           </Grid.Column>
         </Grid.Row>
       </Grid>
