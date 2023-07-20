@@ -2,6 +2,8 @@ import type { ActionArgs } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
 import { Route } from '~/types/constants';
 import type { CreateTaskErrorsObject } from '~/types/types';
+import createTask from '~/data/createTask.server';
+import { getSession } from '~/auth/session.server';
 
 export function loader() {
   throw redirect(Route.App.toLowerCase());
@@ -44,6 +46,8 @@ type CreateTaskFormData = {
 // TODO: Send token thru header
 
 export async function action({ request }: ActionArgs) {
+  const token = await getSession(request);
+  if (!token) throw redirect(`${Route.Login.toLowerCase()}`);
   const formData = await request.formData();
   const body = Object.fromEntries(formData.entries()) as CreateTaskFormData;
   const formErrors = validateTaskFormData(body);
@@ -52,33 +56,15 @@ export async function action({ request }: ActionArgs) {
 
   const createTodoItemObj = {
     ...body,
-    deadline: deadline,
+    deadline,
     created_at: new Date().toJSON()
   };
-  let rawResponse: undefined | Response;
+
   try {
-    rawResponse = await fetch('http://localhost:5000/api/activities', {
-      method: 'POST',
-      body: JSON.stringify(createTodoItemObj),
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
-    });
-  } catch (e) {
-    throw json({ message: e }, { status: 503 });
+    await createTask(token, createTodoItemObj);
+  } catch (e: any) {
+    throw json({ error: 'Could not create task' }, { status: 422 });
   }
-
-  if (!rawResponse.ok)
-    throw json({ message: 'Could not create task' }, { status: 500 });
-
-  const response = await rawResponse.json();
-
-  if (response?.error)
-    throw json(
-      { message: response.error.statusText },
-      { status: response.error.statusCode }
-    );
 
   return redirect(Route.App.toLowerCase());
 }

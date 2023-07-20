@@ -1,35 +1,48 @@
 import type { AtLeast, Task } from '~/types/types';
-import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Card } from 'semantic-ui-react';
+import { Button, Card, Icon } from 'semantic-ui-react';
 import { format } from 'date-fns';
+
+import { useDraggable } from '@dnd-kit/core';
+import { Link } from '@remix-run/react';
 
 interface TaskCardProps {
   task: AtLeast<Task, 'id' | 'deadline' | 'title'>;
 }
 
 export default function TaskCard({ task }: TaskCardProps) {
-  const { setNodeRef, listeners, attributes, transform } = useSortable({
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: task.id
   });
-
   const style = {
-    transform: CSS.Transform.toString(transform)
+    transform: CSS.Translate.toString(transform)
   };
 
   const date = format(new Date(task.deadline), 'yyyy-MM-dd');
 
   return (
     <div
+      className='mb-2 mx-auto w-fit'
       ref={setNodeRef}
       style={style}
-      {...attributes}
       {...listeners}
-      className='mb-5'
+      {...attributes}
     >
       <Card>
         <Card.Content>
-          <Card.Header>{task.title}</Card.Header>
+          <div className='flex justify-between items-center'>
+            <Card.Header>
+              <Icon name='clipboard check' />
+              {task.title}
+            </Card.Header>
+            <Button
+              negative
+              size='mini'
+              icon='trash'
+              as={Link}
+              to={'delete-task'}
+            />
+          </div>
           <Card.Meta>{date}</Card.Meta>
           <Card.Description>
             TODO: add description column to the database
