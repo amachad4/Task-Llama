@@ -5,7 +5,7 @@ export type Task = {
   created_at: string;
   updated_at: string;
   category_lkp_id: string;
-  status_lkp_id: string;
+  status_lkp_id: number;
 };
 
 export interface User {

@@ -21,7 +21,7 @@ export default function TaskLlamaModal({
   open,
   title,
   subTitle,
-  modalDescription,
+  modalDescription
 }: PropsWithChildren<TaskLlamaModalProps>) {
   const navigate = useNavigate();
   return (
@@ -32,6 +32,7 @@ export default function TaskLlamaModal({
       }}
       onOpen={() => setOpen(true)}
       open={open}
+      className='max-w-fit'
     >
       <Modal.Header>{title}</Modal.Header>
       <Modal.Content>
@@ -51,7 +52,6 @@ export default function TaskLlamaModal({
             setOpen(false);
             navigate('..');
           }}
-          negative
         />
       </Modal.Actions>
     </Modal>

@@ -1,11 +1,18 @@
 import { Button, Form, Input, Label } from 'semantic-ui-react';
-import { useFetcher } from '@remix-run/react';
+import { useFetcher, useLoaderData } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import type { CreateTaskErrorsObject } from '~/types/types';
 import { FetcherState, Route } from '~/types/constants';
+import { format } from 'date-fns';
 
 export default function CreateTaskForm() {
   const fetcher = useFetcher();
+
+  const data = useLoaderData();
+
+  const task = data?.task;
+
+  const mode: 'edit' | 'create' = task ? 'edit' : 'create';
 
   let errors: CreateTaskErrorsObject | undefined = fetcher.data?.formErrors;
 
@@ -23,7 +30,11 @@ export default function CreateTaskForm() {
     <fetcher.Form
       className='ui form'
       method='post'
-      action={`${Route.CreateTask}`}
+      action={
+        mode === 'create'
+          ? `${Route.CreateTask.toLowerCase()}`
+          : `${Route.EditTask.toLowerCase()}/${task.id}`
+      }
     >
       <Form.Field error={errorsState?.titleError}>
         <label>Task Title:</label>
@@ -34,6 +45,7 @@ export default function CreateTaskForm() {
           onChange={() => {
             if (errorsState) setErrorsState(undefined);
           }}
+          defaultValue={task?.title ?? ''}
         />
         {errorsState?.titleError && (
           <Label basic color='red' pointing>
@@ -50,6 +62,9 @@ export default function CreateTaskForm() {
           onChange={() => {
             if (errorsState) setErrorsState(undefined);
           }}
+          defaultValue={
+            task ? format(new Date(task?.deadline), 'yyyy-MM-dd') : ''
+          }
         />
         {errorsState?.deadlineError && (
           <Label basic color='red' pointing>
@@ -67,10 +82,9 @@ export default function CreateTaskForm() {
           onChange={() => {
             if (errorsState) setErrorsState(undefined);
           }}
+          defaultValue={task?.category_lkp_id ?? ''}
         >
-          <option value='' selected>
-            Select a Category
-          </option>
+          <option value=''>Select a Category</option>
           <option value='1'>Education</option>
           <option value='2'>Fitness</option>
         </Form.Field>
@@ -84,8 +98,8 @@ export default function CreateTaskForm() {
       <Button
         type='submit'
         positive
-        icon='add'
-        content='Add Task'
+        icon={mode === 'create' ? 'add' : 'edit'}
+        content={mode === 'create' ? 'Create Task' : 'Edit Task'}
         loading={fetcher.state !== FetcherState.Idle.toLocaleLowerCase()}
       />
     </fetcher.Form>

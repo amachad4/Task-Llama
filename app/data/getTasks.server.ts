@@ -9,7 +9,7 @@ type getTasksQueryResponse = {
 export default async function getTasks(token: string) {
   const client = initApollo(token);
   const query = client.query<getTasksQueryResponse>({
-    query: getTasksQuery,
+    query: getTasksQuery
   });
   return (await query).data;
 }
