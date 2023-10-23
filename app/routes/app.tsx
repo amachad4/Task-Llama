@@ -1,31 +1,19 @@
-import type { DragEndEvent } from '@dnd-kit/core';
-import {
-  DndContext,
-  PointerSensor,
-  closestCenter,
-  useSensor
-} from '@dnd-kit/core';
-import {
-  SortableContext,
-  arrayMove,
-  verticalListSortingStrategy
-} from '@dnd-kit/sortable';
-import { Outlet, useLoaderData } from '@remix-run/react';
+import { DndContext } from '@dnd-kit/core';
+import type { UniqueIdentifier, DragEndEvent } from '@dnd-kit/core';
+import { Outlet, useFetcher, useLoaderData } from '@remix-run/react';
+import type { FetcherWithComponents } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import LeftNav from '~/route_components/LeftNav';
-import NavBar from '~/route_components/NavBar';
-import TaskCard from '~/route_components/TaskCard';
-import type { AtLeast, Task } from '~/types/types';
 import getTasks from '~/data/getTasks.server';
 import type { LoaderArgs } from '@remix-run/node';
 import { redirect } from '@remix-run/node';
 import { getSession } from '~/auth/session.server';
 import { Route } from '~/types/constants';
-
-interface loaderData {
-  todoList: AtLeast<Task, 'id' | 'title' | 'deadline'>[];
-}
+import { Droppable } from '~/route_components/Droppable';
+import type { Task } from '~/types/types';
+import TaskCard from '~/route_components/TaskCard';
+import LoadingComponenet from '~/route_components/LoadingComponent';
 
 export async function loader({ request }: LoaderArgs) {
   const token = await getSession(request);
@@ -37,67 +25,136 @@ export async function loader({ request }: LoaderArgs) {
   return { todoList };
 }
 
+function updateStatusId(
+  statusId: string,
+  taskId: UniqueIdentifier,
+  taskStatusLkpId: any,
+  fetcher: FetcherWithComponents<any>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+): void {
+  console.log(taskStatusLkpId);
+  fetcher.submit(
+    { status_lkp_id: statusId },
+    {
+      method: 'post',
+      action: `${Route.EditTask.toLowerCase()}/${taskId}`
+    }
+  );
+  if (taskStatusLkpId.toString() !== statusId) setLoading(true);
+}
+
+// TODO: create an enum for status ids
 export default function TaskLlamaAppLayout() {
-  const loaderData = useLoaderData<loaderData>();
-  const { todoList } = loaderData;
-  const [items, setItems] = useState<loaderData['todoList']>(todoList);
-  const sensor = useSensor(PointerSensor);
+  const data = useLoaderData();
+
+  const fetcher = useFetcher();
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setItems(todoList);
-  }, [todoList]);
+    setInterval(() => {
+      setLoading(false);
+    }, 1500);
+  }, [setLoading]);
 
-  const handleDrag = ({ active, over }: DragEndEvent) => {
-    if (over) {
-      if (active.id !== over.id) {
-        setItems((array) => {
-          const oldIndex = array.findIndex((item) => item.id === active.id);
-          const newIndex = array.findIndex((item) => item.id === over.id);
-          return arrayMove(array, oldIndex, newIndex);
-        });
+  if (loading) {
+    return <LoadingComponenet />;
+  }
+
+  // TODO: Make loader transparent, speed up loader a few mili secs
+
+  function handleDragEnd(event: DragEndEvent) {
+    if (event.over) {
+      console.log(event);
+      switch (event.over.id) {
+        case 'unstarted':
+          updateStatusId(
+            '1',
+            event.active.id,
+            event.active.data.current?.statusLkpId,
+            fetcher,
+            setLoading
+          );
+          break;
+        case 'progress':
+          updateStatusId(
+            '2',
+            event.active.id,
+            event.active.data.current?.statusLkpId,
+            fetcher,
+            setLoading
+          );
+          break;
+        case 'completed':
+          updateStatusId(
+            '3',
+            event.active.id,
+            event.active.data.current?.statusLkpId,
+            fetcher,
+            setLoading
+          );
+          break;
+        default:
+          break;
       }
     }
-  };
+  }
 
   // TODO: Abstract this component into usable route components
-  // TODO: Fix drag and drop reorder issue, figure out lane drag and drop
+
   return (
     <>
-      <NavBar />
       <Grid celled className='min-h-full m-0'>
         <Grid.Row>
           <Grid.Column width={3} className='bg-task-llama-light-gray'>
             <LeftNav />
           </Grid.Column>
           <Grid.Column width={13} className='shadow-none'>
-            <DndContext
-              sensors={[sensor]}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDrag}
-            >
-              <Grid columns={3} divided className='min-h-full'>
-                <Grid.Row>
+            <Grid columns={3} divided className='min-h-full'>
+              <Grid.Row>
+                <DndContext onDragEnd={handleDragEnd}>
                   <Grid.Column>
                     <Header as='h3'>Unstarted</Header>
-
-                    <SortableContext
-                      items={todoList.map((todo) => todo.id)}
-                      strategy={verticalListSortingStrategy}
-                    >
-                      {items.map((item) => {
-                        return <TaskCard key={item.id} task={item} />;
-                      })}
-                    </SortableContext>
+                    <Droppable id='unstarted'>
+                      {data.todoList
+                        .filter((task: Task) => task.status_lkp_id === 1)
+                        .map((task: Task) => (
+                          <TaskCard
+                            task={task}
+                            key={task.id + task.status_lkp_id}
+                          />
+                        ))}
+                    </Droppable>
                   </Grid.Column>
                   <Grid.Column>
                     <Header as='h3'>In Progress</Header>
+                    <Droppable id='progress'>
+                      {data.todoList
+                        .filter((task: Task) => task.status_lkp_id === 2)
+                        .map((task: Task) => (
+                          <TaskCard
+                            task={task}
+                            key={task.id + task.status_lkp_id}
+                          />
+                        ))}
+                    </Droppable>
                   </Grid.Column>
                   <Grid.Column>
                     <Header as='h3'>Completed</Header>
+                    <Droppable id='completed'>
+                      {data.todoList
+                        .filter((task: Task) => task.status_lkp_id === 3)
+                        .map((task: Task) => (
+                          <TaskCard
+                            task={task}
+                            key={task.id + task.status_lkp_id}
+                          />
+                        ))}
+                    </Droppable>
                   </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </DndContext>
+                </DndContext>
+              </Grid.Row>
+            </Grid>
           </Grid.Column>
         </Grid.Row>
       </Grid>
