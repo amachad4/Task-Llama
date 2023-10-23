@@ -5,17 +5,20 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
+  ScrollRestoration
 } from '@remix-run/react';
 import tailwindStyles from './styles/tailwind.css';
 import semanticUiStyles from 'semantic-ui-css/semantic.min.css';
 import ApolloContext from './context/apollo';
 import { useContext } from 'react';
+import NavBar from './route_components/NavBar';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: semanticUiStyles },
-  { rel: 'stylesheet', href: tailwindStyles },
+  { rel: 'stylesheet', href: tailwindStyles }
 ];
+
+// TODO: check for session token and dynamically render navbar
 
 export default function App() {
   const initialState = useContext(ApolloContext);
@@ -28,6 +31,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <NavBar />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
@@ -36,7 +40,7 @@ export default function App() {
           dangerouslySetInnerHTML={{
             __html: `window.__INITIAL_STATE__=${JSON.stringify(
               initialState
-            ).replace(/</g, '\\u003c')};`,
+            ).replace(/</g, '\\u003c')};`
           }}
         />
       </body>

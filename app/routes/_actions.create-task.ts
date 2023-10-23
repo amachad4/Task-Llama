@@ -43,8 +43,6 @@ type CreateTaskFormData = {
   category_lkp_id: string;
 };
 
-// TODO: Send token thru header
-
 export async function action({ request }: ActionArgs) {
   const token = await getSession(request);
   if (!token) throw redirect(`${Route.Login.toLowerCase()}`);

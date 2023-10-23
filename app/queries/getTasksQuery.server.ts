@@ -8,6 +8,7 @@ export default gql`
         title
         deadline
         status_lkp_id
+        updated_at
       }
     }
   }

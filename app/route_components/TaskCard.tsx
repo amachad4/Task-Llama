@@ -12,7 +12,8 @@ interface TaskCardProps {
 
 export default function TaskCard({ task }: TaskCardProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: task.id
+    id: task.id,
+    data: { statusLkpId: task.status_lkp_id }
   });
   const style = {
     transform: CSS.Translate.toString(transform)
@@ -35,17 +36,31 @@ export default function TaskCard({ task }: TaskCardProps) {
               <Icon name='clipboard check' />
               {task.title}
             </Card.Header>
-            <Button
-              negative
-              size='mini'
-              icon='trash'
-              as={Link}
-              to={'delete-task'}
-            />
+            <Button.Group basic size='small'>
+              <Button
+                size='mini'
+                icon='plus'
+                as={Link}
+                to={`new-sub-task/${task.id}`}
+              />
+              <Button
+                size='mini'
+                icon='edit'
+                as={Link}
+                to={`edit-task/${task.id}`}
+              />
+              <Button
+                size='mini'
+                icon='trash'
+                as={Link}
+                to={`delete-task/${task.id}`}
+              />
+            </Button.Group>
           </div>
           <Card.Meta>{date}</Card.Meta>
           <Card.Description>
             TODO: add description column to the database
+            {task.status_lkp_id}
           </Card.Description>
         </Card.Content>
       </Card>
